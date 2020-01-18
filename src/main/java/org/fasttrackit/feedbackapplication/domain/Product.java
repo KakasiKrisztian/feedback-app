@@ -1,9 +1,9 @@
 package org.fasttrackit.feedbackapplication.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -13,6 +13,16 @@ public class Product {
     private long id;
     @NotNull
     private String name;
+
+    private String imageUrl;
+
+    @OneToMany(cascade = CascadeType.MERGE)
+    private List<Review> reviews = new ArrayList<>();
+
+    public void addReviewToProduct(Review review){
+
+        reviews.add(review);
+    }
 
 
     public long getId() {
@@ -31,5 +41,11 @@ public class Product {
         this.name = name;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }

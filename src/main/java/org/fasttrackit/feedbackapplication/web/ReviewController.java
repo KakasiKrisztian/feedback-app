@@ -2,8 +2,12 @@ package org.fasttrackit.feedbackapplication.web;
 
 import org.fasttrackit.feedbackapplication.domain.Review;
 import org.fasttrackit.feedbackapplication.service.ReviewService;
+import org.fasttrackit.feedbackapplication.transfer.ProductResponse;
+import org.fasttrackit.feedbackapplication.transfer.ReviewResponse;
 import org.fasttrackit.feedbackapplication.transfer.SaveReviewRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +36,12 @@ public class ReviewController {
     public ResponseEntity<Review> getReview(@PathVariable Long id) {
         Review review = reviewService.getReview(id);
         return new ResponseEntity<>(review, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<ReviewResponse>> getProducts(ReviewResponse request, Pageable pageable) {
+        Page<ReviewResponse> reviews = reviewService.getReviews(request, pageable);
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
