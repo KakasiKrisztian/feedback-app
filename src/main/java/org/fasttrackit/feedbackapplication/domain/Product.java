@@ -1,6 +1,7 @@
 package org.fasttrackit.feedbackapplication.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +12,9 @@ public class Product {
     @Id
     @GeneratedValue
     private long id;
-    @NotNull
+    @NotBlank
     private String name;
-
+    @NotBlank
     private String imageUrl;
 
     @OneToMany(cascade = CascadeType.MERGE)

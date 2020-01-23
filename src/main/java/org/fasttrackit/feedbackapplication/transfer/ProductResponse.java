@@ -5,6 +5,7 @@ public class ProductResponse {
 
         private long id;
         private String name;
+        private String imageUrl;
 
         public long getId() {
             return id;
@@ -22,7 +23,15 @@ public class ProductResponse {
             this.name = name;
         }
 
-        @Override
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    @Override
         public String toString() {
             return "ProductResponse{" +
                     "id=" + id +

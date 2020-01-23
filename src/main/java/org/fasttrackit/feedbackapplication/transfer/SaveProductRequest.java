@@ -1,10 +1,14 @@
 package org.fasttrackit.feedbackapplication.transfer;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class SaveProductRequest {
-    @NotNull
+    @NotBlank
     private String name;
+    @NotBlank
+    private String imageUrl;
+
 
     public String getName() {
         return name;
@@ -12,6 +16,14 @@ public class SaveProductRequest {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @Override
