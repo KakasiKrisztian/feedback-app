@@ -1,8 +1,12 @@
 package org.fasttrackit.feedbackapplication.domain;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.groups.ConvertGroup;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +21,8 @@ public class Product {
     @NotBlank
     private String imageUrl;
 
-    @OneToMany(cascade = CascadeType.MERGE)
+    @OneToMany
+    @JoinColumn(name = "product_id")
     private List<Review> reviews = new ArrayList<>();
 
     public void addReviewToProduct(Review review){

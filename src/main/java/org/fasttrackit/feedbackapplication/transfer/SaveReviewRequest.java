@@ -1,12 +1,13 @@
 package org.fasttrackit.feedbackapplication.transfer;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class SaveReviewRequest {
 
-    @NotNull
+    @NotBlank
     private String reviewName;
-    @NotNull
+    @NotBlank
     private String description;
 
     public String getReviewName() {

@@ -32,17 +32,23 @@ public class ReviewController {
         return new ResponseEntity<>(review, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Review> getReview(@PathVariable Long id) {
-        Review review = reviewService.getReview(id);
-        return new ResponseEntity<>(review, HttpStatus.OK);
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Review> getReview(@PathVariable Long id) {
+//        Review review = reviewService.getReview(id);
+//        return new ResponseEntity<>(review, HttpStatus.OK);
+//    }
 
-    @GetMapping
-    public ResponseEntity<Page<ReviewResponse>> getReviews(ReviewResponse request, Pageable pageable) {
-        Page<ReviewResponse> reviews = reviewService.getReviews(request, pageable);
+    @GetMapping("/{id}")
+    public ResponseEntity<Page<ReviewResponse>> getReviewsByProductId(@PathVariable Long id, Pageable pageable){
+        Page<ReviewResponse> reviews = reviewService.findAllByProductId(id, pageable);
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
+
+//    @GetMapping
+//    public ResponseEntity<Page<ReviewResponse>> getReviews(ReviewResponse request, Pageable pageable) {
+//        Page<ReviewResponse> reviews = reviewService.getReviews(request, pageable);
+//        return new ResponseEntity<>(reviews, HttpStatus.OK);
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Review> updateReview(@PathVariable Long id, @RequestBody @Valid SaveReviewRequest request) {

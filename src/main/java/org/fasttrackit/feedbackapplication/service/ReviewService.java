@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -37,6 +38,27 @@ public class ReviewService {
         review.setReviewName(request.getReviewName());
         review.setDescription(request.getDescription());
         return reviewRepository.save(review);
+    }
+
+    @Transactional
+    public Page<ReviewResponse> findAllByProductId(long id, Pageable pageable){
+        LOGGER.info("Retrieving all reviews of product {}", id);
+
+        Page<Review> reviews;
+        reviews = reviewRepository.findByProductId(id, pageable);
+        List<ReviewResponse> reviewResponses = new ArrayList<>();
+
+        for (Review review : reviews.getContent()) {
+            ReviewResponse reviewResponse = new ReviewResponse();
+            reviewResponse.setId(review.getId());
+            reviewResponse.setDescription(review.getDescription());
+            reviewResponse.setReviewName(review.getReviewName());
+
+            reviewResponses.add(reviewResponse);
+
+        }
+        Collections.reverse(reviewResponses);
+        return new PageImpl<>(reviewResponses, pageable, reviews.getTotalElements());
     }
 
     public Review getReview(long id) {
